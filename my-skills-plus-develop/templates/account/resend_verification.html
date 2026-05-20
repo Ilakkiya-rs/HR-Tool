@@ -1,0 +1,17 @@
+<!-- templates/account/resend_verification.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resend Verification Email</title>
+</head>
+<body>
+    <h1>Resend Verification Email</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Resend Verification Email</button>
+    </form>
+</body>
+</html>
+

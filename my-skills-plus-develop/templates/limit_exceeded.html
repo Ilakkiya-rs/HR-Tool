@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %} 
+{% block title %}
+{% trans "Limit Exceeded" %}{% endblock %}
+{% block content %}
+
+<div class="card p-4 rounded-7">
+  <div class="card-body">
+    <h1 class="fw-bold">
+     Your Trial Period Expired <br />
+    </h1>
+      <h4 class="text-primary ">try again after some time </h4>
+
+    <ul class="list-unstyled my-5">
+      <li class="mb-3">
+        <i class="fas fa-check text-primary me-3"></i>Save Profile
+      </li>
+      <li class="mb-3"><i class="fas fa-check text-primary me-3"></i>Share Profile</li>
+      <li class="mb-3"><i class="fas fa-check text-primary me-3"></i>Track Your Skills </li>
+      <li class=""><i class="fas fa-check text-primary me-3"></i>Tree and Bubble View</li>
+    </ul>
+
+
+    <a
+       class="btn btn-primary btn-lg me-3"
+       href="{% url 'account_signup' %}"
+       role="button"
+       style="width: 202px"
+       >Get started</a
+      >
+  </div>
+</div>
+
+
+
+
+{% endblock %}

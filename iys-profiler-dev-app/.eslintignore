@@ -1,0 +1,4 @@
+**/assets/**/*.js
+node_modules
+bin
+build

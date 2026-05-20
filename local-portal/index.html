@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MySkillsPlus — Local dev home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --text: #0f172a;
+        --muted: #64748b;
+        --primary: #1d4ed8;
+        --primary-dark: #1e3a8a;
+        --accent: #6d28d9;
+        --border: #e2e8f0;
+        --shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "DM Sans", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .top-strip {
+        background: var(--primary-dark);
+        color: #e2e8f0;
+        font-size: 0.875rem;
+        padding: 0.5rem 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+      .top-strip a {
+        color: #fff;
+      }
+      header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+      }
+      .nav-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0.75rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .brand {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--text);
+        letter-spacing: -0.02em;
+      }
+      .brand span {
+        color: var(--primary);
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.25rem 1rem;
+      }
+      details.nav-dd {
+        position: relative;
+      }
+      details.nav-dd > summary {
+        list-style: none;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--text);
+        padding: 0.35rem 0;
+      }
+      details.nav-dd > summary::-webkit-details-marker {
+        display: none;
+      }
+      details.nav-dd > summary::after {
+        content: " ▾";
+        font-size: 0.7em;
+        color: var(--muted);
+      }
+      details.nav-dd[open] > summary::after {
+        content: " ▴";
+      }
+      .dd-panel {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        min-width: 220px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        padding: 0.5rem 0;
+        margin-top: 0.35rem;
+        z-index: 100;
+      }
+      .dd-panel a {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: var(--text);
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+      .dd-panel a:hover {
+        background: #f1f5f9;
+        text-decoration: none;
+      }
+      .dd-panel small {
+        display: block;
+        color: var(--muted);
+        font-weight: 400;
+        font-size: 0.75rem;
+        margin-top: 0.15rem;
+      }
+      .nav-link {
+        font-weight: 600;
+        color: var(--text);
+        padding: 0.35rem 0;
+      }
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 4rem;
+      }
+      .hero {
+        text-align: center;
+        padding: 2.5rem 1rem 3rem;
+        background: linear-gradient(160deg, #eff6ff 0%, #f5f3ff 50%, #fff 100%);
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        margin-bottom: 2.5rem;
+      }
+      .hero h1 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        line-height: 1.15;
+        margin: 0 0 1rem;
+        letter-spacing: -0.03em;
+      }
+      .hero p {
+        max-width: 640px;
+        margin: 0 auto 1.5rem;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+      .btn-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.65rem 1.35rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        text-decoration: none;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(29, 78, 216, 0.35);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+      }
+      h2 {
+        font-size: 1.5rem;
+        margin: 2.5rem 0 1rem;
+        letter-spacing: -0.02em;
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+      }
+      .card h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.2rem;
+      }
+      .card p {
+        color: var(--muted);
+        margin: 0 0 1rem;
+        font-size: 0.95rem;
+      }
+      .apps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1rem;
+      }
+      .app-tile {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem 1.1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+      .app-tile strong {
+        font-size: 1rem;
+      }
+      .app-tile code {
+        font-size: 0.8rem;
+        background: #f1f5f9;
+        padding: 0.15rem 0.45rem;
+        border-radius: 6px;
+        color: #475569;
+      }
+      .app-tile .folder {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      footer {
+        max-width: 1120px;
+        margin: 3rem auto 0;
+        padding: 1.5rem 1.25rem;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.875rem;
+        text-align: center;
+      }
+      .pill {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        background: #fef3c7;
+        color: #92400e;
+        padding: 0.2rem 0.5rem;
+        border-radius: 6px;
+        margin-left: 0.35rem;
+      }
+    </style>
+  </head>
+  <body>
+   
+    <header>
+      <div class="nav-inner">
+        <a class="brand" href="#">MySkills<span>Plus</span> <span class="pill">Local</span></a>
+        <nav aria-label="Primary">
+          <a class="nav-link" href="#home">Home</a>
+          <details class="nav-dd">
+            <summary>Skillmap</summary>
+            <div class="dd-panel">
+              <a data-app="skillmap" href="#"
+                >Experience Skill Map <small>iys-profiler-dev-app</small></a
+              >
+              <a href="https://myskillsplus.com/" target="_blank" rel="noopener"
+                >About SkillMap (live) <small>myskillsplus.com</small></a
+              >
+            </div>
+          </details>
+          <details class="nav-dd">
+            <summary>Vani</summary>
+            <div class="dd-panel">
+              <a data-app="vaniSkills" href="#"
+                >Skills assessment <small>/skills — MySkillsPlus flow</small></a
+              >
+              <a data-app="vaniRoot" href="#">Vani home <small>/</small></a>
+            </div>
+          </details>
+          <details class="nav-dd">
+            <summary>Use cases</summary>
+            <div class="dd-panel">
+              <a data-app="individual" href="#"
+                >Personal skills profiling <small>Individual app</small></a
+              >
+              <a data-app="recruiter" href="#">Candidates screening <small>Recruiter app</small></a>
+            </div>
+          </details>
+          <details class="nav-dd">
+            <summary>Sign up / in</summary>
+            <div class="dd-panel">
+              <a data-app="recruiter" href="#">Employer <small>Recruiter portal</small></a>
+              <a data-app="individual" href="#">Individual <small>Candidate app</small></a>
+            </div>
+          </details>
+        </nav>
+      </div>
+    </header>
+    <main id="home">
+      <section class="hero">
+        <h1>Skills profiling + AI verification — on your machine</h1>
+        <p>
+          Same product story as
+          <a href="https://myskillsplus.com/" target="_blank" rel="noopener">myskillsplus.com</a>:
+          structured <strong>SkillMap</strong> profiles and <strong>Vani</strong> interviews. Use
+          the links below to jump between local apps.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" data-app="individual" href="#">Individual app</a>
+          <a class="btn btn-primary" data-app="recruiter" href="#">Employer / recruiter</a>
+          <a class="btn btn-outline" data-app="vaniSkills" href="#">Open Vani (skills)</a>
+        </div>
+      </section>
+
+      <h2>SkillMap &amp; Vani</h2>
+      <div class="two-col">
+        <article class="card">
+          <h3>SkillMap — structured profiler</h3>
+          <p>
+            Taxonomy, demos, and profiler UX aligned with the SkillMap narrative on the marketing
+            site.
+          </p>
+          <a class="btn btn-primary" data-app="skillmap" href="#">Open SkillMap (local)</a>
+        </article>
+        <article class="card">
+          <h3>Vani — AI-enabled interviews</h3>
+          <p>
+            Generate assessments and run the interview flow against your local API when configured.
+          </p>
+          <a class="btn btn-primary" data-app="vaniSkills" href="#">Open Vani /skills</a>
+          <a class="btn btn-outline" data-app="vaniRoot" href="#" style="margin-top: 0.5rem"
+            >Vani home</a
+          >
+        </article>
+      </div>
+
+      <h2>All workspace apps</h2>
+      <p style="color: var(--muted); margin-top: 0">
+        Each tile opens the default dev URL. Run the matching <code>npm run dev</code> (or Django)
+        first.
+      </p>
+      <div class="apps-grid" id="apps-grid"></div>
+    </main>
+    <footer>
+      Not affiliated with production hosting — this page is only for navigating local clones.<br />
+      Official product &amp; copy:
+      <a href="https://myskillsplus.com/" target="_blank" rel="noopener">myskillsplus.com</a>
+      · connect@myskillsplus.com
+    </footer>
+    <script>
+      (function () {
+        /** Edit these if your dev servers use different ports */
+        var PORTS = {
+          admin: 3000,
+          partner: 3002,
+          individual: 3003,
+          recruiter: 3004,
+          skillmap: 3005,
+          vani: 5174,
+          api: 8000,
+          profiler: 8085,
+          fresherProfiler: 8086,
+          portal: 3099,
+        };
+        /* Admin Next defaults to 3000 — run partner as: npx next dev -p 3002 */
+
+        function h(port, path) {
+          path = path || "";
+          var p = path.startsWith("/") ? path : "/" + path;
+          return "http://localhost:" + port + p;
+        }
+
+        var routes = {
+          admin: h(PORTS.admin),
+          partner: h(PORTS.partner),
+          individual: h(PORTS.individual),
+          recruiter: h(PORTS.recruiter),
+          skillmap: h(PORTS.skillmap),
+          vaniRoot: h(PORTS.vani),
+          vaniSkills: h(PORTS.vani, "/skills"),
+          api: h(PORTS.api),
+          profiler: h(PORTS.profiler),
+          fresherProfiler: h(PORTS.fresherProfiler),
+          portal: h(PORTS.portal),
+        };
+
+        document.querySelectorAll("[data-app]").forEach(function (el) {
+          var key = el.getAttribute("data-app");
+          if (routes[key]) {
+            el.setAttribute("href", routes[key]);
+            if (el.tagName === "A" && !el.getAttribute("target")) {
+              el.setAttribute("target", "_blank");
+              el.setAttribute("rel", "noopener noreferrer");
+            }
+          }
+        });
+
+        var apps = [
+          { key: "skillmap", title: "SkillMap / IYS profiler site", folder: "iys-profiler-dev-app" },
+          { key: "individual", title: "Individual (candidate) Next app", folder: "my-skills-plus-next-dev-app" },
+          { key: "partner", title: "Partner portal", folder: "partner-myskillsplus-next-main" },
+          { key: "recruiter", title: "Recruiter / employer portal", folder: "recruiter-myskillsplus-next-main" },
+          { key: "admin", title: "Admin dashboard", folder: "admin-myskillsplus-next-live" },
+          { key: "vaniSkills", title: "Vani assessment (skills entry)", folder: "vani-assessment-module-main" },
+          { key: "api", title: "Django API", folder: "my-skills-plus-develop" },
+          { key: "profiler", title: "Profiler plugin (static)", folder: "iys-skills-profiler-plugin-main" },
+          { key: "fresherProfiler", title: "Fresher profiler plugin (static)", folder: "iys-skills-fresher-profiler-plugin-main" },
+        ];
+
+        var grid = document.getElementById("apps-grid");
+        apps.forEach(function (app) {
+          var url = routes[app.key];
+          if (!url) return;
+          var tile = document.createElement("div");
+          tile.className = "app-tile";
+          tile.innerHTML =
+            "<strong>" +
+            app.title +
+            "</strong>" +
+            "<code>" +
+            url.replace(/^https?:\/\//, "") +
+            "</code>" +
+            '<span class="folder">' +
+            app.folder +
+            "</span>" +
+            '<a href="' +
+            url +
+            '" target="_blank" rel="noopener noreferrer">Open →</a>';
+          grid.appendChild(tile);
+        });
+
+        (function navDropdowns() {
+          var dds = document.querySelectorAll("details.nav-dd");
+          dds.forEach(function (d) {
+            d.addEventListener("toggle", function () {
+              if (!d.open) return;
+              dds.forEach(function (o) {
+                if (o !== d) o.open = false;
+              });
+            });
+          });
+          document.addEventListener("click", function (e) {
+            var header = document.querySelector("header");
+            if (!header || !header.contains(e.target)) return;
+            if (e.target.closest(".dd-panel a")) {
+              dds.forEach(function (d) {
+                d.open = false;
+              });
+              return;
+            }
+            if (e.target.closest("details.nav-dd > summary")) return;
+            if (e.target.closest("details.nav-dd")) return;
+            dds.forEach(function (d) {
+              d.open = false;
+            });
+          });
+        })();
+      })();
+    </script>
+  </body>
+</html>

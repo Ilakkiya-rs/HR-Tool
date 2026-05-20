@@ -1,0 +1,94 @@
+{% load static %} {% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    {% block meta_tags_block %} {% endblock meta_tags_block %}
+
+
+    <title>{% block title %}{% endblock %}| My Skills Plus</title>
+
+    <link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+/>
+<link rel="stylesheet" href="{% static 'dist/star-rating.min.css' %}">
+<link rel="stylesheet" href="{% static 'demo/styles.min.css' %}">
+
+<link rel="icon" href="{% static 'img/logo.png' %}"  type="image/png">
+</head>
+<script src="{% static 'dist/star-rating.js' %}"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+    <!-- MDB -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.css"
+      rel="stylesheet"
+
+
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  </head>
+
+  <body>
+  {% with url_name=request.resolver_match.url_name %}
+  {% if url_name == 'render_pdf_view' %}
+
+    {% else %}
+    {% if  url_name == "embed_view_mode_skills_profile"  %}
+    
+    {% else %}
+    {% include "navi.html" %}
+    {% endif %}
+    {% endif %}
+  {% endwith  %}
+
+    <main >
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show"
+        role="alert"
+      >
+        {{message}}
+      </div>
+      {% endfor %} {% endif %}
+      <div class="container pt-4">
+        {% block content %} {% endblock content %}
+      </div>
+    </main>
+
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </body>
+</html>

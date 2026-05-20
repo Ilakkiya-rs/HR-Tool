@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %} 
+{% block title %}
+{% trans "My Skill Profile" %}{% endblock %}
+{% block content %}
+<style>
+  text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  text-anchor: middle;
+  font-weight: bolder;
+  }
+</style>
+<div class="card p-4 rounded-7">
+  <div class="card-body">
+    <button type="button" class="btn btn-primary btn-rounded float-end"  data-mdb-ripple-color="dark"  data-mdb-toggle="modal" data-mdb-target="#exampleModal">Share <i class="fas fa-share ml-2"></i></button>
+    <a href="{% url 'profilers:render_pdf_view' %}"  target="popup"  onclick="window.open('{% url 'profilers:render_pdf_view' %}','popup','width=600,height=600,scrollbars=no,resizable=no'); return false;">
+    <button type="button" class="btn btn-outline-primary btn-rounded float-end" style="margin-right:4px" data-mdb-ripple-color="dark">Download Pdf <i class="fas fa-arrow-down"></i></button>
+    </a>
+    <h1 class="fw-bold">
+      My Skill Profile 
+      <br />  
+      <small class="text-muted text-sm text-" style="font-size:50%">You have 
+      <span class="text-primary">{{all_skills|length}}</span> skills in your profile.
+      </small>
+    </h1>
+    <h5 class="text-primary fw-bold">
+      Save, Share and Track Your Skills
+    </h5>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="exampleModalLabel" >Share Profile</h5>
+            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <center>
+              <!-- Facebook -->
+              <a class="btn text-white btn-lg btn-floating me-3" style="background-color: #ac2bac;" onclick="instagramShareButtonClick()" role="button">
+              <i class="fab fa-instagram fa-2x"></i>
+              </a>
+              <a class="btn text-white btn-lg btn-floating me-3" style="background-color: #3b5998;" onclick="facebookShareButtonClick()" role="button">
+              <i class="fab fa-facebook fa-2x"></i>
+              </a>
+              <a class="btn text-white btn-lg btn-floating btn-primary me-3" onclick="copyToClipboard()"    data-mdb-toggle="popover" data-mdb-content="Copied !" role="button">
+              <i class="fas fa-link fa-2x"></i>
+              </a>
+              <a class="btn text-white btn-lg btn-floating me-3"  onclick="linkedinShareButtonClick()" style="background-color: #1266f1;"  role="button">
+              <i class="fab fa-linkedin fa-2x"></i>
+              </a>
+              </a>
+            </center>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-rounded btn-secondary" data-mdb-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <!-- Tabs navs -->
+    <ul class="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a
+          style="font-size: 120%;"
+          class="nav-link  fw-bold active"
+          id="ex2-tab-1"
+          data-mdb-toggle="tab"
+          href="#ex2-tabs-1"
+          role="tab"
+          aria-controls="ex2-tabs-1"
+          aria-selected="true"
+          >    <i class="fas fa-table-cells-large"></i> Quick View</a
+          >
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          style="font-size: 120%;"
+          class="nav-link  fw-bold"
+          id="ex2-tab-2"
+          data-mdb-toggle="tab"
+          href="#ex2-tabs-2"
+          role="tab"
+          aria-controls="ex2-tabs-2"
+          aria-selected="false"
+          ><i class="fas fa-tree"></i> Tabular View</a
+          >
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          style="font-size: 120%;"
+          class="nav-link  fw-bold"
+          id="ex2-tab-3"
+          data-mdb-toggle="tab"
+          href="#ex2-tabs-3"
+          role="tab"
+          aria-controls="ex2-tabs-3"
+          aria-selected="false"
+          >   Smart View</a
+          >
+      </li>
+    </ul>
+    <!-- Tabs navs -->
+    <!-- Tabs content -->
+    <div class="tab-content" id="ex2-content">
+      <div
+        class="tab-pane fade show active"
+        id="ex2-tabs-1"
+        role="tabpanel"
+        aria-labelledby="ex2-tab-1"
+        >
+        <h1 class="fw-bold">
+          Quick View
+        </h1>
+        <p> Presents your skills, proficiencies, and notes on the skills. Easy to know what all skills you have.
+        </p>
+        <hr>
+        {% for i in all_skills %}
+        <button type="button" class="btn btn-secondary btn-lg  btn-rounded"   
+        {%if i.comment %} title="Comment"  data-mdb-toggle="popover" data-mdb-content="{{i.comment}}" data-mdb-trigger="hover"
+        {% endif %}
+        style="display: inline-flex; align-items: center; border: 2px solid rgba(0, 0, 0, 0.65); color: rgb(33, 36, 41); background: white; border-radius: 10px; font-size: 105%; text-transform: capitalize; margin-left: 5px; margin-top: 5px; font-family: system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;;">
+        {{i.isot_file.name}} 
+        {%if i.comment %} 
+                <i class="fas fa-message" style="color:#042960b8;margin-left:10px;margin-right:10px"></i>
+        {% else %}
+                <i class="far fa-message" style="color:#042960b8;margin-left:10px;margin-right:10px"></i>
+
+        
+        {% endif %}
+        <div style="width: 25px; height: 25px; border-radius: 50%; background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#2C58A0 {{i.rating_percentage}}%, pink 0);">
+          <progress value="{{i.rating_percentage}}" min="0" max="100" style="visibility:hidden;height:0;width:0;">75%</progress>
+        </div>
+        </button>
+        {% endfor %}
+      </div>
+      <div
+        class="tab-pane fade"
+        id="ex2-tabs-2"
+        role="tabpanel"
+        aria-labelledby="ex2-tab-2"
+        >
+        <div
+          class="tab-pane fade show active"
+          id="ex2-tabs-1"
+          role="tabpanel"
+          aria-labelledby="ex2-tab-1"
+          >
+          <h1 class="fw-bold">
+            Tabular View
+          </h1>
+          <p>Presents your skills in a logical and organized way, like that in our report cards in school.</p>
+          <hr>
+
+          {% for nodeTree  in data  %}
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active fw-bold " style="font-size:130%;color:black !important" aria-current="page"><a href="#">{{nodeTree.ancestors}}</a></li>
+                </ol>
+              </nav>
+            </div>
+          </nav>
+          <ol class="list-group list-group-light ">
+            {% for node  in nodeTree.skills  %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">{{node.isot_file.name}}</div>
+                {{node.comment}}
+              </div>
+              <div>
+                <span class="text-muted" style="margin-right:40px"> {{node.rating_legend}}</span>
+                <div   style="width: 25px; height: 25px;float:right;margin-right:40px; border-radius: 50%; background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(#2C58A0 {{node.rating_percentage}}%, pink 0);">
+                  <progress value="{{node.rating_percentage}}" min="0" max="100" style="visibility:hidden;height:0;width:0;">75%</progress>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ol>
+          {% endfor %}
+        </div>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="ex2-tabs-3"
+        role="tabpanel"
+        aria-labelledby="ex2-tab-3"
+        >
+        <div
+          class="tab-pane fade show active"
+          id="ex2-tabs-1"
+          role="tabpanel"
+          aria-labelledby="ex2-tab-1"
+          >
+          <h1 class="fw-bold">
+            Smart View
+          </h1>
+          <p>
+            Present your skills in engaging and attractive way. Easy to compare proficiencies in your different skills.
+          </p>
+          <hr>
+          {{ all_skills|json_script:"skill_tree" }}
+          <span id="bubbleView"></span>
+          <script src="https://d3js.org/d3.v7.min.js"></script>
+          <script src="{% static 'js/bubble.js' %}"></script>
+          <script>
+            var skillsTree = JSON.parse(
+              document.getElementById("skill_tree").textContent
+            );
+            
+            skillsTree.sort((a, b) => b.rating - a.rating);
+            
+            chart = BubbleChart(skillsTree, {
+              label: (d) => d.isot_file.name.split(" ").join("\n"),
+              value: (d) => d.rating * 1000,
+              group: (d) => "test_group" + d.rating,
+              title: (d) => d.isot_file.name,
+              width: 1152,
+              strokeWidth: 20,
+              strokeOpacity: 1,
+            });
+            
+            console.log(chart);
+            document.getElementById("bubbleView").appendChild(chart);
+          </script>
+        </div>
+      </div>
+    </div>
+    <!-- Tabs content -->
+  </div>
+</div>
+<script>
+  function copyToClipboard() {
+      var url = window.location.host +"{{share_url}}"; // Replace with your desired URL
+   url = url.substring(0, url.length - 1);
+   navigator.clipboard.writeText(url)
+      .then(function() {
+        // Optional: Provide visual feedback to the user
+  
+      })
+      .catch(function(error) {
+        // Handle error if unable to copy to clipboard
+        console.error("Failed to copy to clipboard: ", error);
+      });
+  }
+
+  function linkedinShareButtonClick()
+  
+  {
+
+    
+    var url = window.location.host +"{{share_url}}"; // Replace with your desired URL
+
+    // remove the last char in url 
+    url = url.substring(0, url.length - 1);
+    var linkedinUrl = `https://www.linkedin.com/shareArticle/?url=${url}&title={{profile.user.get_full_name}} Skills Profiler&summary=Present your skills in engaging and attractive way. Easy to compare proficiencies in your different skills.&source=My Skills Plus`
+    window.open(linkedinUrl, '_blank');
+  }
+  function facebookShareButtonClick(){
+    var url = window.location.host +"{{share_url}}"; // Replace with your desired URL
+
+    // remove the last char in url 
+    url = url.substring(0, url.length - 1);
+    var facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=Present your skills in engaging and attractive way. Easy to compare proficiencies in your different skills.`
+    window.open(facebookUrl, '_blank');
+  }
+  function instagramShareButtonClick(){
+    var url = window.location.host +"{{share_url}}"; // Replace with your desired URL
+
+    url = url.substring(0, url.length - 1);
+    var instagramUrl = `https://www.instagram.com/?url=${url}`
+    window.open(instagramUrl, '_blank');
+  }
+</script>
+
+{% endblock %}

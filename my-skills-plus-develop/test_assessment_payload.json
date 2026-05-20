@@ -1,0 +1,26 @@
+{
+  "skills": [
+    {
+      "skill_name": "Python",
+      "id": 1,
+      "skill_id": "skill-1",
+      "tag_name": "Tools",
+      "rating": 3,
+      "comment": ""
+    },
+    {
+      "skill_name": "SQL",
+      "id": 2,
+      "skill_id": "skill-2",
+      "tag_name": "Concepts",
+      "rating": 4,
+      "comment": ""
+    }
+  ],
+  "profileData": {
+    "email": "assessment@test.com",
+    "name": "Assessment Test User"
+  },
+  "testLength": 5,
+  "timeLimit": 20
+}

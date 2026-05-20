@@ -1,0 +1,18 @@
+{
+  "skills": [
+    {
+      "skill_name": "Python",
+      "id": 1,
+      "skill_id": "skill-1",
+      "tag_name": "Tools",
+      "rating": 3,
+      "comment": ""
+    }
+  ],
+  "profileData": {
+    "email": "assessment@test.com",
+    "name": "Assessment Test User"
+  },
+  "testLength": 5,
+  "timeLimit": 20
+}

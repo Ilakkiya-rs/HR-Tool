@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3-journal
+
+# Next.js / Vite build
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+
+# Env & secrets (keep .env.example if added later)
+.env
+.env.*
+!.env.example
+.env.test
+.env.local
+env
+env (2)
+env (3)
+client_secret*.json
+**/secrets/*.json
+profilers/secrets/
+
+# Logs & local artifacts
+*.log
+api_requests.log
+dump.rdb
+.DS_Store
+Thumbs.db
+.vscode/
+*.code-workspace
+*.swp
+
+# Large DB snapshots (restore locally from backup; do not push to GitHub)
+IYS_14mar26/*.sql
+IYS_14mar26/*.dmp
+IYS_14mar26/*.tar.gz
+IYS_14mar26/arangodbdump14mar26/
+IYS_14mar26/env*

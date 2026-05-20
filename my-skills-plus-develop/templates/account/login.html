@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Sign In" %}{% endblock title %}
+
+{% block content %}
+  <div class="container my-4 max-width-650">
+    <h1>{% trans "Sign In" %}</h1>
+    <p>{% blocktrans with site.name as site_name %}Please sign in with this link <a href="{{ signup_url }}">sign up</a>
+      {% endblocktrans %}</p>
+
+<form action="{% provider_login_url 'google' %}" method="post">
+  {% csrf_token %}
+      <div class="text-center">
+        <button class="btn fw-bold btn-outline-primary btn-rounded  btn-rounded" type="submit"   >
+        
+          <i class="fab fa-google fa-lg"  style="color: #dd4b39;" href="#!" role="button"></i>
+          {% trans "Login with Google" %}
+        </button>
+      </div>
+ 
+</form>
+
+
+
+
+
+
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <br>
+      <a class="btn btn-default" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+    </form>
+      <!-- Register buttons -->
+
+  </div>
+{% endblock content %}

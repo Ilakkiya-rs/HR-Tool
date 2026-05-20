@@ -1,0 +1,172 @@
+/* public/css/print.css */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-page, .print-page * {
+    visibility: visible;
+  }
+
+  .print-page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .top-content {
+    display: flex;
+    margin-top: 10%;
+    padding-left: 5%;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .logo-text{
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    justify-content: center;
+    margin-left: 8px;
+    color:#1e1a5c;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #156082;
+    margin-top: 10px;
+  }
+
+  .print-content{
+    margin-top: 0px !important;
+    padding: 30px;
+  }
+
+  .quick-view {
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 15px;
+  }
+
+  .quick-view-description {
+    color: rgb(99, 99, 99);
+    margin: 0;
+  }
+
+  .tag {
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+
+  .skill-name {
+      font-size: 16px;
+      color: rgb(30, 30, 30);
+  }
+
+  .tabular-view {
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 15px;
+  }
+
+  .tabular-view-description {
+      color: rgb(99, 99, 99);
+  }
+
+  .skill-details {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+  }
+
+  .taggedSkills{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 0px;
+
+  }
+
+  .ps-3 img{
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    display: block;
+  }
+
+  .comment-div {
+    display: none;
+    margin-top: 10px;
+    color: #555;
+  }
+
+  .d-flex {
+    display: flex;
+  }
+
+  .align-items-center {
+    align-items: center;
+  }
+
+  .gap-3 {
+    gap: 1rem;
+  }
+  
+  .gap-2{
+    gap: 0.5rem;
+  }
+
+  .mb-2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .mb-4 {
+    margin-bottom: 1.5rem;
+  }
+
+  .mt-3 {
+    margin-top: 1rem;
+  }
+
+  .fw-bold {
+    font-weight: bold;
+  }
+
+  .px-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .h5{
+    color: rgb(0, 80, 175) !important;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: auto;
+    padding: 10px;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #333; 
+  }
+
+}

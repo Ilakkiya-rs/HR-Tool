@@ -1,0 +1,141 @@
+.dropdown-item:active {
+  background-color: white;
+  color: black;
+}
+
+.mouse-cursor-gradient-tracking {
+  background: #0060b4;
+}
+
+.grad {
+  background-image: radial-gradient(
+    circle farthest-side at var(--x) var(--y),
+    #08f 0%,
+    #0066bf 35%,
+    transparent 100%
+  );
+}
+
+.hero-bg {
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 992px) {
+  .hero-bg {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 120px);
+  }
+}
+
+.search-bar-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Adjust the width as needed */
+  margin: 20px auto;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+#skillSearchBar {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  /* border-bottom: 1px solid #ccc; */
+  font-size: 20px;
+  outline: none;
+}
+
+#skillSearchBar::placeholder {
+  color: #999;
+}
+
+.search-results {
+  margin-top: 10px;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-result-item:hover {
+  background-color: #f5f5f5;
+}
+
+.loading-spinner {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.letter {
+  text-decoration: underline;
+  color: #4285f4;
+  font-weight: bold;
+}
+
+.selected-letter {
+  color: black;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.pagination-text {
+  font-size: 20px;
+  display: inline;
+  margin-right: 10px;
+}
+
+.pagination {
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow-x: auto;
+}
+
+.pagination-item {
+  margin: 0 5px;
+}
+
+.pagination a {
+  white-space: nowrap;
+}
+
+.card-body {
+  padding-bottom: 0;
+}
+
+.hero-section {
+  position: relative;
+  padding: 80px 0;
+  color: #ffffff;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  /* color: #ffdd57; */
+}
+
+.hero-section a.btn {
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.hero-section .btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: #ffffff;
+}

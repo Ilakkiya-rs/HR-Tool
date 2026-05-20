@@ -1,0 +1,8 @@
+{
+  "name": "myskillsplus-local-portal",
+  "private": true,
+  "description": "Local dev home — mirrors myskillsplus.com nav; links to all workspace apps",
+  "scripts": {
+    "dev": "npx --yes serve . -l 3099"
+  }
+}

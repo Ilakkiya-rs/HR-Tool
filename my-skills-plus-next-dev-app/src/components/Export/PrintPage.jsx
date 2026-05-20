@@ -1,0 +1,154 @@
+import React, { forwardRef, useEffect, useState } from "react";
+
+const ratingImages = {
+  1: "/images/percentage/0rate.png",
+  2: "/images/percentage/25.png",
+  3: "/images/percentage/50.png",
+  4: "/images/percentage/75.png",
+  5: "/images/percentage/100.png",
+};
+
+function getRatingAndLabel(skill) {
+  const ratingData = (skill.rating?.length === 2) ? skill.rating[1] : skill.rating[0];
+  const ratingValue = ratingData?.rating || 0;
+  const ratingMeta = (skill.isot_file?.ratings?.length === 2)
+    ? skill.isot_file.ratings[1]
+    : skill.isot_file.ratings[0];
+  const labels = ratingMeta?.rating_scale_label || [];
+  let label = "--";
+  if (ratingValue === 2) label = labels[0] || "--";
+  else if (ratingValue === 3) label = labels[1] || "--";
+  else if (ratingValue === 4) label = labels[2] || "--";
+  else if (ratingValue === 5) label = labels[3] || "--";
+
+  return { rating: ratingValue, ratingLabel: label };
+}
+
+const aliasMap = {
+  "Area": "Career Domain",
+  "Focus Area, Specialization": "Focus Area, Specialization",
+  "Domain": "Contextual Dimensions",
+  "Role": "Role",
+  "Concepts": "Knowledge (of concepts, methods, processes etc.)",
+  "Applied Skills": "Applied Skills",
+  "Tools": "Tools, Technologies, Applications",
+  "Certifications": "Certifications",
+  "Machinery": "Machinery",
+  "Responsibilities": "Responsibilities",
+  "Personal Attributes": "Personal Attributes",
+  "Language Proficiency": "Language Proficiency",
+  "Master": "Master",
+  "Learning": "Learning",
+  "Function": "Function"
+};
+
+const priority = [
+  "Area", "Role", "Concepts", "Applied Skills", "Tools", "Responsibilities", "Certifications",
+  "Personal Attributes", "Language Proficiency", "Function", "Domain", "Focus Area, Specialization",
+  "Machinery", "Master", "Learning"
+];
+
+function getTags(tags) {
+  if (!tags || tags.length === 0) return "Other";
+  let selectedTag = tags.reduce((prev, curr) => {
+    const prevIndex = priority.indexOf(prev.title);
+    const currIndex = priority.indexOf(curr.title);
+    if (currIndex !== -1 && (prevIndex === -1 || currIndex < prevIndex)) return curr;
+    return prev;
+  });
+  const title = selectedTag?.title || "";
+  return aliasMap[title] || title;
+}
+
+function groupSkillsByTag(skills) {
+  const grouped = {};
+  skills.forEach((skill) => {
+    const tagName = getTags(skill.isot_file?.tags || []);
+    if (!grouped[tagName]) grouped[tagName] = [];
+    grouped[tagName].push(skill);
+  });
+  return grouped;
+}
+
+function sortByPathAddrHierarchy(skills) {
+  const sortedResult = [];
+  skills.forEach(parent => {
+    const parentPath = parent.isot_file.path_addr;
+    if (!sortedResult.includes(parent)) {
+      sortedResult.push(parent);
+    }
+    skills.forEach(child => {
+      if (
+        child.isot_file.path_addr.startsWith(parentPath + ".") &&
+        !sortedResult.includes(child)
+      ) {
+        sortedResult.push(child);
+      }
+    });
+  });
+  return sortedResult;
+}
+
+const PrintPage = forwardRef(({ skills, profileId }, ref) => {
+  const groupedSkills = groupSkillsByTag(skills);
+  const sortedTagNames = Object.keys(groupedSkills).sort((a, b) => {
+    return priority.indexOf(a) - priority.indexOf(b);
+  });
+
+  return (
+    <div ref={ref} className="print-wrapper">
+      <div className="header-left mb-5 flex items-center space-x-2">
+        <img
+          src="/images/logo/myskillspluslogo.png"
+          alt="Logo"
+          className="print-logo h-10"
+        />
+        <span className="brand-name text-xl font-semibold">MySkillsPlus</span>
+      </div>
+
+      <div className="print-header">
+        <div className="text-center">
+          <div className="text-2xl font-bold">My Skills Profile</div>
+          <div className="profile-id text-sm font-semibold">({profileId})</div>
+        </div>
+      </div>
+
+      <div className="print-body">
+        {sortedTagNames.map((tagName) => {
+          const group = sortByPathAddrHierarchy(groupedSkills[tagName]);
+          return (
+            <div key={tagName} className="mb-6">
+              <h2 className="text-lg font-bold text-blue-700 mb-2">{tagName}</h2>
+              {group.map((skill, index) => {
+                const skillName = skill.isot_file?.name || "Unnamed";
+                const { rating, ratingLabel } = getRatingAndLabel(skill);
+                const ratingImage = ratingImages[rating] || "";
+                return (
+                  <div key={index} className="skill-row">
+                    <div className="skill-inline">
+                      <div className="skill-name">{skillName}</div>
+                      <div className="skill-rating-label">{ratingLabel}</div>
+                      {ratingImage && (
+                        <img src={ratingImage} className="rating-icon" alt="Rating" />
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="print-footer">
+        Generated by&nbsp;
+        <a href="https://myskillsplus.com" target="_blank" rel="noopener noreferrer">
+          myskillsplus.com
+        </a>
+      </div>
+    </div>
+  );
+});
+
+PrintPage.displayName = "PrintPage";
+export default PrintPage;

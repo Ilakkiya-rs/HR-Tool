@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% load static %} {% load i18n %} {% block title %}
+{%trans "Bubble View" %} {% endblock %} {% block content %}
+<style>
+  text {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    text-anchor: middle;
+    font-weight: bolder;
+    color:white;
+    fill: white;
+  }
+</style>
+{{ skill_tree|json_script:"skill_tree" }}
+<span id="bubbleView"></span>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="{% static 'js/bubble.js' %}"></script>
+<script>
+  var skillsTree = JSON.parse(
+    document.getElementById("skill_tree").textContent
+  );
+
+  skillsTree.sort((a, b) => b.rating - a.rating);
+
+  chart = BubbleChart(skillsTree, {
+    label: (d) => d.isot_file.name.split(" ").join("\n"),
+    value: (d) => d.rating * 1000,
+    group: (d) => "test_group" + d.rating,
+    title: (d) => d.isot_file.name,
+    width: 1152,
+    strokeWidth: 20,
+    strokeOpacity: 1,
+  });
+
+  console.log(chart);
+  document.getElementById("bubbleView").appendChild(chart);
+</script>
+{% endblock %}

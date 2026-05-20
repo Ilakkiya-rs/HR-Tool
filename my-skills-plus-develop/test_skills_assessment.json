@@ -1,0 +1,29 @@
+{
+  "skills": [
+    {
+      "skill_name": "Python",
+      "id": 1,
+      "skill_id": "skill-python-001",
+      "tag_name": "Tools",
+      "rating": 3,
+      "comment": "",
+      "proxy_skill": null
+    },
+    {
+      "skill_name": "Communication",
+      "id": 2,
+      "skill_id": "skill-soft-001",
+      "tag_name": "Applied Skills",
+      "rating": 4,
+      "comment": "",
+      "proxy_skill": null
+    }
+  ],
+  "profileData": {
+    "name": "Assessment Test User",
+    "email": "assessment@test.com",
+    "individual_profile_id": "TEST-PROFILE-001"
+  },
+  "testLength": 5,
+  "timeLimit": 20
+}
